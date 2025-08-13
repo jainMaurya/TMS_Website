@@ -185,6 +185,17 @@ function App() {
     setFadeIn(true);
   }, []);
 
+  // When lightbox is open, freeze background animations/transitions to avoid re-animating content
+  useEffect(() => {
+    const cls = 'freeze-anim';
+    if (viewerOpen) {
+      document.body.classList.add(cls);
+    } else {
+      document.body.classList.remove(cls);
+    }
+    return () => document.body.classList.remove(cls);
+  }, [viewerOpen]);
+
   // Hero parallax (mouse-based, throttled via rAF) with reduced-motion safety
   const heroRef = React.useRef(null);
   const rafRef = React.useRef(0);
@@ -200,6 +211,7 @@ function App() {
   };
   const onHeroMouseMove = (e) => {
     // Respect prefers-reduced-motion
+    if (viewerOpen) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const rect = e.currentTarget.getBoundingClientRect();
     pointerRef.current = {
@@ -265,9 +277,11 @@ function App() {
         {/* Navigation Bar */}
   <AppBar position="static" color={'secondary'} elevation={2}>
           <Toolbar>
-            <Typography variant="h5" component="div" sx={{ flexGrow: 1, fontWeight: 'bold', letterSpacing: 2 }}>
-              Thapar Mathematical Society
-            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
+              <IconButton aria-label="Go to home" color="inherit" onClick={() => setSection('home')} component={RouterLink} to="/" sx={{ p: 0.5, mr: 1 }}>
+                <Avatar src="/TMS-LOGO.png" alt="TMS Home" sx={{ width: 36, height: 36, bgcolor: 'white' }} />
+              </IconButton>
+            </Box>
             <Tabs value={section} onChange={handleNavChange} textColor="inherit" indicatorColor="secondary" sx={{ fontWeight: 'bold' }}>
               <Tab label="Home" value="home" />
               <Tab label="Events" value="events" />
@@ -408,33 +422,7 @@ function App() {
               </Reveal>
             </Container>
 
-    {/* Speakers & Guests aligned with About (both lg) */}
-    <Container maxWidth="lg" sx={{ pt: 0, pb: 4 }}>
-              <Reveal>
-                <Box sx={{ mt: 1 }}>
-                  <Typography variant="h5" sx={{ fontWeight: 800, mb: 1.5, color: (t) => t.palette.mode === 'dark' ? t.palette.secondary.main : t.palette.primary.main }}>Speakers & Guests</Typography>
-                  <Grid container spacing={3} wrap="wrap" alignItems="stretch">
-                    {[
-                      { name: 'Dr. Yashpreet Kaur', title: 'Guest Speaker', photo: '/events/2023-2024/Shoonya 4.0/Guest Lecture/Dr. Yashpreet Kaur.jpg' },
-                      { name: 'Dr. Seema Bawa', title: 'Guest Speaker', photo: '/events/2023-2024/Shoonya 4.0/Guest Lecture/Dr. Seema Bawa.jpg' },
-                      { name: 'Dr. Arvind Kumar', title: 'Faculty', photo: '/events/2023-2024/Shoonya 4.0/Welcome Speech/Dr. Arvind Kumar.png' },
-                    ].map((sp, idx) => (
-                      <Grid key={sp.name} item xs={12} sm={6} md={4} lg={4}>
-                        <Reveal delayMs={idx * 80}>
-                        <Paper elevation={2} sx={{ p: 2.5, borderRadius: 4, display: 'flex', gap: 2, alignItems: 'center', height: '100%', width: '100%', transition: 'transform .2s ease, box-shadow .2s ease', '&:hover': { transform: 'translateY(-4px)', boxShadow: 6 } }}>
-                          <Box component="img" src={sp.photo} alt={sp.name} loading="lazy" sx={{ width: 100, height: 100, borderRadius: 3, objectFit: 'cover', flexShrink: 0 }} />
-                          <Box>
-                            <Typography variant="subtitle1" sx={{ fontWeight: 800 }}>{sp.name}</Typography>
-                            <Typography variant="body2" color="text.secondary">{sp.title}</Typography>
-                          </Box>
-                        </Paper>
-                        </Reveal>
-                      </Grid>
-                    ))}
-                  </Grid>
-                </Box>
-              </Reveal>
-            </Container>
+  {/* Speakers & Guests removed per request */}
           </Box>
         </Fade>
         {/* Gallery Section */}
@@ -784,7 +772,7 @@ function App() {
                   <Link href="#events" color="inherit" underline="hover" sx={{ mr: 2 }}>Events</Link>
                   <Link href="#gallery" color="inherit" underline="hover" sx={{ mr: 2 }}>Gallery</Link>
                   <Link href="#team" color="inherit" underline="hover" sx={{ mr: 2 }}>Team</Link>
-                  <Link href="#contact" color="inherit" underline="hover">Contact</Link>
+                  {/* Contact removed */}
                 </Box>
               </Grid>
               <Grid item xs={12} md={4} sx={{ textAlign: { xs: 'left', md: 'right' } }}>

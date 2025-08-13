@@ -74,7 +74,10 @@ export default function EventPage() {
             <IconButton edge="start" color="inherit" component={RouterLink} to="/">
               <ArrowBackIcon />
             </IconButton>
-            <Typography variant="h6" sx={{ ml: 1, flexGrow: 1 }}>Thapar Mathematical Society</Typography>
+            <IconButton color="inherit" component={RouterLink} to="/" sx={{ p: 0.5, ml: 1 }}>
+              <Box component="img" src="/TMS-LOGO.png" alt="TMS Home" sx={{ width: 32, height: 32, borderRadius: '50%', bgcolor: 'white' }} />
+            </IconButton>
+            <Box sx={{ flexGrow: 1 }} />
             <Link component={RouterLink} to="/" color="inherit" underline="hover">Home</Link>
           </Toolbar>
         </AppBar>
@@ -108,7 +111,10 @@ export default function EventPage() {
           <IconButton edge="start" color="inherit" component={RouterLink} to="/">
             <ArrowBackIcon />
           </IconButton>
-          <Typography variant="h6" sx={{ ml: 1, flexGrow: 1 }}>Thapar Mathematical Society</Typography>
+          <IconButton color="inherit" component={RouterLink} to="/" sx={{ p: 0.5, ml: 1 }}>
+            <Box component="img" src="/TMS-LOGO.png" alt="TMS Home" sx={{ width: 32, height: 32, borderRadius: '50%', bgcolor: 'white' }} />
+          </IconButton>
+          <Box sx={{ flexGrow: 1 }} />
           <Link component={RouterLink} to="/" color="inherit" underline="hover">Home</Link>
         </Toolbar>
       </AppBar>

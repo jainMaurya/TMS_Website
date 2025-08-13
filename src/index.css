@@ -19,6 +19,15 @@ html, body, #root {
 
 body { margin: 0; }
 
+/* When lightbox is open, freeze background animations and scrolling */
+body.freeze-anim {
+  overflow: hidden;
+}
+body.freeze-anim *, body.freeze-anim *::before, body.freeze-anim *::after {
+  animation-play-state: paused !important;
+  transition: none !important;
+}
+
 #root {
   display: block;
 }
