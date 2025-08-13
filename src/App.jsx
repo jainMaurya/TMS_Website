@@ -294,7 +294,17 @@ function App() {
   <AppBar position="static" color={'secondary'} elevation={2}>
           <Toolbar>
             <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-        <IconButton aria-label="Go to home" color="inherit" onClick={() => setSection('home')} component={RouterLink} to="/" sx={{ p: 0.5, mr: { xs: 2, sm: 4 }, position: 'relative', width: 48, height: 48 }}>
+              <IconButton
+                aria-label="Go to home"
+                color="inherit"
+                onClick={() => setSection('home')}
+                component={RouterLink}
+                to="/"
+                disableRipple
+                disableFocusRipple
+                focusRipple={false}
+                sx={{ p: 0.5, mr: { xs: 2, sm: 4 }, position: 'relative', width: 48, height: 48, borderRadius: 0, '&:hover': { backgroundColor: 'transparent' } }}
+              >
                 <Box
                   component="img"
                   src="/TMS-UPPER.png"

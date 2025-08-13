@@ -96,8 +96,8 @@ export default function EventPage() {
             <IconButton edge="start" color="inherit" component={RouterLink} to="/">
               <ArrowBackIcon />
             </IconButton>
-            <IconButton color="inherit" component={RouterLink} to="/" sx={{ p: 0.5, ml: 1 }}>
-              <Box component="img" src="/TMS-UPPER.png" alt="TMS Home" onError={(e)=>{ e.currentTarget.src='/TMS-LOGO.png'; }} sx={{ width: 36, height: 36, objectFit: 'contain', display: 'block' }} />
+            <IconButton color="inherit" component={RouterLink} to="/" disableRipple disableFocusRipple focusRipple={false} sx={{ p: 0.5, ml: 1, borderRadius: 0, '&:hover': { backgroundColor: 'transparent' }, position: 'relative', width: 48, height: 48 }}>
+              <Box component="img" src="/TMS-UPPER.png" alt="TMS Home" onError={(e)=>{ e.currentTarget.src='/TMS-LOGO.png'; }} sx={{ height: { xs: 120, sm: 160 }, width: 'auto', objectFit: 'contain', display: 'block', position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)' }} />
             </IconButton>
             <Box sx={{ flexGrow: 1 }} />
             <Link component={RouterLink} to="/" color="inherit" underline="hover">Home</Link>
@@ -133,8 +133,8 @@ export default function EventPage() {
           <IconButton edge="start" color="inherit" component={RouterLink} to="/">
             <ArrowBackIcon />
           </IconButton>
-          <IconButton color="inherit" component={RouterLink} to="/" sx={{ p: 0.5, ml: 1 }}>
-            <Box component="img" src="/TMS-UPPER.png" alt="TMS Home" onError={(e)=>{ e.currentTarget.src='/TMS-LOGO.png'; }} sx={{ width: 36, height: 36, objectFit: 'contain', display: 'block' }} />
+          <IconButton color="inherit" component={RouterLink} to="/" disableRipple disableFocusRipple focusRipple={false} sx={{ p: 0.5, ml: 1, borderRadius: 0, '&:hover': { backgroundColor: 'transparent' }, position: 'relative', width: 48, height: 48 }}>
+            <Box component="img" src="/TMS-UPPER.png" alt="TMS Home" onError={(e)=>{ e.currentTarget.src='/TMS-LOGO.png'; }} sx={{ height: { xs: 120, sm: 160 }, width: 'auto', objectFit: 'contain', display: 'block', position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)' }} />
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
           <Link component={RouterLink} to="/" color="inherit" underline="hover">Home</Link>
