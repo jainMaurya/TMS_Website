@@ -41,8 +41,14 @@ export default function EventPage() {
   }), [mode]);
   useEffect(() => { if (event) document.title = `TMS — ${event.title}`; }, [event]);
   // open lightbox
-  const openViewer = (idx = 0) => { setViewerIndex(idx); setViewerOpen(true); };
-  const closeViewer = () => setViewerOpen(false);
+  const openViewer = (idx = 0) => { setViewerIndex(idx); try { window.history.pushState({ lightbox: true }, ''); } catch {} setViewerOpen(true); };
+  const closeViewer = () => {
+    if (viewerOpen) {
+      try { window.history.back(); } catch { setViewerOpen(false); }
+    } else {
+      setViewerOpen(false);
+    }
+  };
   const prevImage = () => setViewerIndex((i) => (i - 1 + (event?.photos?.length || 0)) % (event?.photos?.length || 1));
   const nextImage = () => setViewerIndex((i) => (i + 1) % (event?.photos?.length || 1));
   useEffect(() => {
@@ -55,6 +61,12 @@ export default function EventPage() {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [viewerOpen, event]);
+  useEffect(() => {
+    if (!viewerOpen) return;
+    const onPop = () => setViewerOpen(false);
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, [viewerOpen]);
   // Freeze background animations when lightbox is open
   useEffect(() => {
     const cls = 'freeze-anim';

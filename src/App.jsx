@@ -165,9 +165,25 @@ function App() {
   const openViewer = (images, index = 0) => {
     setViewerImages(images);
     setViewerIndex(index);
+    try { window.history.pushState({ lightbox: true }, ''); } catch {}
     setViewerOpen(true);
   };
-  const closeViewer = () => setViewerOpen(false);
+  const closeViewer = () => {
+    if (viewerOpen) {
+      try { window.history.back(); } catch { setViewerOpen(false); }
+    } else {
+      setViewerOpen(false);
+    }
+  };
+  // Close viewer on browser back (popstate) without leaving the current section
+  useEffect(() => {
+    if (!viewerOpen) return;
+    const onPop = () => {
+      setViewerOpen(false);
+    };
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, [viewerOpen]);
   const prevImage = () => setViewerIndex((i) => (i - 1 + viewerImages.length) % viewerImages.length);
   const nextImage = () => setViewerIndex((i) => (i + 1) % viewerImages.length);
   // Keyboard navigation for gallery lightbox
@@ -288,6 +304,9 @@ function App() {
               <Tab label="Gallery" value="gallery" />
               <Tab label="Team" value="team" />
             </Tabs>
+            <Box sx={{ ml: 1, display: { xs: 'none', sm: 'block' } }}>
+              <Box component="img" src="/TMS-UPPER.png" alt="TMS" sx={{ height: 28, display: 'block' }} />
+            </Box>
           </Toolbar>
         </AppBar>
 
@@ -443,16 +462,31 @@ function App() {
                 </Box>
                 {/* Smart Gallery: Masonry using CSS columns */}
         <Reveal>
-  <Box sx={{ columnCount: { xs: 1, sm: 2, md: 3, lg: 4, xl: 5 }, columnGap: { xs: 10, sm: 12, md: 12 } }}>
-                  {galleryData[galleryYear]?.map((src, idx) => (
-                    <Reveal key={src} delayMs={idx * 40}>
-          <Paper elevation={1} onClick={() => openViewer(galleryData[galleryYear], idx)}
-      sx={{ display: 'inline-block', width: '100%', mb: 1, p: 0.5, cursor: 'zoom-in', bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1, transition: 'box-shadow 0.2s, transform 0.18s', breakInside: 'avoid', '&:hover': { boxShadow: 4, transform: 'translateY(-2px)' } }}>
-      <Box component="img" src={src} alt="gallery image" loading="lazy" decoding="async" sx={{ width: '100%', height: 'auto', borderRadius: 1.5, display: 'block' }} />
-                      </Paper>
-                    </Reveal>
-                  ))}
-                </Box>
+        {galleryYear === '2017-18' ? (
+          // Special grid layout for 2017-18 to keep structure neat and balanced
+          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)', lg: 'repeat(4, 1fr)' }, gap: 1.5 }}>
+            {galleryData[galleryYear]?.map((src, idx) => (
+              <Reveal key={src} delayMs={idx * 40}>
+                <Paper elevation={1} onClick={() => openViewer(galleryData[galleryYear], idx)}
+                  sx={{ p: 0.5, cursor: 'zoom-in', bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1, transition: 'box-shadow 0.2s, transform 0.18s', '&:hover': { boxShadow: 4, transform: 'translateY(-2px)' } }}>
+                  <Box component="img" src={src} alt="gallery image" loading="lazy" decoding="async"
+                       sx={{ width: '100%', aspectRatio: '4 / 3', objectFit: 'cover', borderRadius: 1.5, display: 'block' }} />
+                </Paper>
+              </Reveal>
+            ))}
+          </Box>
+        ) : (
+          <Box sx={{ columnCount: { xs: 1, sm: 2, md: 3, lg: 4, xl: 5 }, columnGap: { xs: 10, sm: 12, md: 12 } }}>
+            {galleryData[galleryYear]?.map((src, idx) => (
+              <Reveal key={src} delayMs={idx * 40}>
+                <Paper elevation={1} onClick={() => openViewer(galleryData[galleryYear], idx)}
+                  sx={{ display: 'inline-block', width: '100%', mb: 1, p: 0.5, cursor: 'zoom-in', bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1, transition: 'box-shadow 0.2s, transform 0.18s', breakInside: 'avoid', '&:hover': { boxShadow: 4, transform: 'translateY(-2px)' } }}>
+                  <Box component="img" src={src} alt="gallery image" loading="lazy" decoding="async" sx={{ width: '100%', height: 'auto', borderRadius: 1.5, display: 'block' }} />
+                </Paper>
+              </Reveal>
+            ))}
+          </Box>
+        )}
         </Reveal>
               </Container>
             </Box>
