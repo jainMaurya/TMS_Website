@@ -97,7 +97,7 @@ export default function EventPage() {
               <ArrowBackIcon />
             </IconButton>
             <IconButton color="inherit" component={RouterLink} to="/" sx={{ p: 0.5, ml: 1 }}>
-              <Box component="img" src="/TMS-LOGO.png" alt="TMS Home" sx={{ width: 32, height: 32, borderRadius: '50%', bgcolor: 'white' }} />
+              <Box component="img" src="/TMS-UPPER.png" alt="TMS Home" onError={(e)=>{ e.currentTarget.src='/TMS-LOGO.png'; }} sx={{ width: 36, height: 36, objectFit: 'contain', display: 'block' }} />
             </IconButton>
             <Box sx={{ flexGrow: 1 }} />
             <Link component={RouterLink} to="/" color="inherit" underline="hover">Home</Link>
@@ -134,7 +134,7 @@ export default function EventPage() {
             <ArrowBackIcon />
           </IconButton>
           <IconButton color="inherit" component={RouterLink} to="/" sx={{ p: 0.5, ml: 1 }}>
-            <Box component="img" src="/TMS-LOGO.png" alt="TMS Home" sx={{ width: 32, height: 32, borderRadius: '50%', bgcolor: 'white' }} />
+            <Box component="img" src="/TMS-UPPER.png" alt="TMS Home" onError={(e)=>{ e.currentTarget.src='/TMS-LOGO.png'; }} sx={{ width: 36, height: 36, objectFit: 'contain', display: 'block' }} />
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
           <Link component={RouterLink} to="/" color="inherit" underline="hover">Home</Link>

@@ -113,11 +113,11 @@ function App() {
     // Update theme-color meta for better PWA status bar color
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.setAttribute('content', '#0B0D11');
-    // Preload hero logo for faster first paint
-    const preload = document.createElement('link');
-    preload.rel = 'preload';
-    preload.as = 'image';
-    preload.href = '/TMS-LOGO.png';
+  // Preload header logo for faster first paint
+  const preload = document.createElement('link');
+  preload.rel = 'preload';
+  preload.as = 'image';
+  preload.href = '/TMS-UPPER.png';
     document.head.appendChild(preload);
     return () => {
       try { document.head.removeChild(preload); } catch {}
@@ -294,8 +294,14 @@ function App() {
   <AppBar position="static" color={'secondary'} elevation={2}>
           <Toolbar>
             <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-              <IconButton aria-label="Go to home" color="inherit" onClick={() => setSection('home')} component={RouterLink} to="/" sx={{ p: 0.5, mr: 1 }}>
-                <Avatar src="/TMS-LOGO.png" alt="TMS Home" sx={{ width: 36, height: 36, bgcolor: 'white' }} />
+        <IconButton aria-label="Go to home" color="inherit" onClick={() => setSection('home')} component={RouterLink} to="/" sx={{ p: 0.5, mr: { xs: 2, sm: 4 }, position: 'relative', width: 48, height: 48 }}>
+                <Box
+                  component="img"
+                  src="/TMS-UPPER.png"
+                  alt="TMS Home"
+                  onError={(e) => { e.currentTarget.src = '/TMS-LOGO.png'; }}
+          sx={{ height: { xs: 120, sm: 160 }, width: 'auto', display: 'block', objectFit: 'contain', position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)' }}
+                />
               </IconButton>
             </Box>
             <Tabs value={section} onChange={handleNavChange} textColor="inherit" indicatorColor="secondary" sx={{ fontWeight: 'bold' }}>
@@ -304,9 +310,7 @@ function App() {
               <Tab label="Gallery" value="gallery" />
               <Tab label="Team" value="team" />
             </Tabs>
-            <Box sx={{ ml: 1, display: { xs: 'none', sm: 'block' } }}>
-              <Box component="img" src="/TMS-UPPER.png" alt="TMS" sx={{ height: 28, display: 'block' }} />
-            </Box>
+            {/* Removed top-right logo per request */}
           </Toolbar>
         </AppBar>
 
