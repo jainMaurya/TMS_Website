@@ -1,12 +1,59 @@
-# React + Vite
+# Thapar Mathematical Society (TMS) — Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Modern React site built with Vite and MUI. Dark theme by default, smooth scroll animations, event pages, gallery lightbox, and a responsive team layout.
 
-Currently, two official plugins are available:
+## Quick Start
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Prerequisites:
+- Node.js 18+ and npm
 
-## Expanding the ESLint configuration
+Install dependencies:
+```bash
+npm install
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Start the dev server:
+```bash
+npm run dev
+```
+The app runs at http://localhost:5173.
+
+Build for production:
+```bash
+npm run build
+npm run preview   # optional: preview the build locally
+```
+
+## Project Structure
+- `src/App.jsx` — Home, Gallery, Team, and Events sections; theme and animations.
+- `src/EventPage.jsx` — Individual event page and photo grid.
+- `src/data/events.js` — Event metadata (title, date, cover, photos, slug).
+- `public/` — Static images for events, gallery, and team.
+- `index.html` — Metadata, fonts, and manifest.
+
+## Editing Content
+Events list and photos:
+- Edit `src/data/events.js`.
+- Each event entry has: `title`, `date`, `slug`, `cover`, and `photos` array.
+- Put event images under `public/events/<year>/<event-name>/...` and reference them with absolute paths starting with `/events/...`.
+
+Gallery:
+- Images live under `public/gallery/<year>/...`.
+- Year tabs are derived from keys in `galleryData` inside `src/App.jsx`.
+
+Team:
+- Team photos live in `public/team/<year>/...`.
+- Team cards are defined in the Team section of `src/App.jsx`. Keep the 3–2–4 layout; images use a 4:5 aspect ratio.
+
+Branding:
+- The primary accent uses `rgb(61, 33, 117)` in dark mode (`theme.palette.secondary`).
+- Hero font: Space Grotesk (loaded in `index.html`).
+
+## Tips
+- To add more images, prefer WebP/AVIF for faster loads; keep names URL-safe.
+- For smooth deploys on static hosts (GitHub Pages/Netlify/Vercel), serve the `dist/` folder created by `npm run build`.
+
+## Commands
+- `npm run dev` — start development server
+- `npm run build` — create production build
+- `npm run preview` — preview the production build locally
