@@ -1,0 +1,43 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Link colors handled by MUI theme */
+a { font-weight: 500; text-decoration: inherit; }
+
+html, body, #root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+body { margin: 0; }
+
+#root {
+  display: block;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+/* Buttons and interactive colors are driven by MUI theme */
+button { font-family: inherit; }
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+  }
+  /* Prefer theme-driven colors; keep this block minimal */
+}

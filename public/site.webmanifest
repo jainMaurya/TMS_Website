@@ -1,0 +1,12 @@
+{
+  "name": "Thapar Mathematical Society (TMS)",
+  "short_name": "TMS",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0D11",
+  "theme_color": "#0B0D11",
+  "icons": [
+    { "src": "/TMS-LOGO.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/TMS-LOGO.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
