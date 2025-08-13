@@ -443,12 +443,12 @@ function App() {
                 </Box>
                 {/* Smart Gallery: Masonry using CSS columns */}
         <Reveal>
-        <Box sx={{ columnCount: { xs: 1, sm: 2, md: 3, lg: 4 }, columnGap: 16 }}>
+  <Box sx={{ columnCount: { xs: 1, sm: 2, md: 3, lg: 4, xl: 5 }, columnGap: { xs: 10, sm: 12, md: 12 } }}>
                   {galleryData[galleryYear]?.map((src, idx) => (
                     <Reveal key={src} delayMs={idx * 40}>
-                      <Paper elevation={2} onClick={() => openViewer(galleryData[galleryYear], idx)}
-            sx={{ display: 'inline-block', width: '100%', mb: 2, p: 0.75, cursor: 'zoom-in', bgcolor: 'background.paper', borderRadius: 3, boxShadow: 2, transition: 'box-shadow 0.25s, transform 0.2s', breakInside: 'avoid', '&:hover': { boxShadow: 8, transform: 'translateY(-2px)' } }}>
-                        <Box component="img" src={src} alt="gallery image" loading="lazy" decoding="async" sx={{ width: '100%', height: 'auto', borderRadius: 2, display: 'block' }} />
+          <Paper elevation={1} onClick={() => openViewer(galleryData[galleryYear], idx)}
+      sx={{ display: 'inline-block', width: '100%', mb: 1, p: 0.5, cursor: 'zoom-in', bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1, transition: 'box-shadow 0.2s, transform 0.18s', breakInside: 'avoid', '&:hover': { boxShadow: 4, transform: 'translateY(-2px)' } }}>
+      <Box component="img" src={src} alt="gallery image" loading="lazy" decoding="async" sx={{ width: '100%', height: 'auto', borderRadius: 1.5, display: 'block' }} />
                       </Paper>
                     </Reveal>
                   ))}

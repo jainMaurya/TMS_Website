@@ -55,6 +55,16 @@ export default function EventPage() {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [viewerOpen, event]);
+  // Freeze background animations when lightbox is open
+  useEffect(() => {
+    const cls = 'freeze-anim';
+    if (viewerOpen) {
+      document.body.classList.add(cls);
+    } else {
+      document.body.classList.remove(cls);
+    }
+    return () => document.body.classList.remove(cls);
+  }, [viewerOpen]);
   // keyboard nav between events when lightbox is closed
   useEffect(() => {
     if (viewerOpen || !prev || !next) return;
@@ -149,7 +159,7 @@ export default function EventPage() {
             Next
           </Button>
         </Box>
-        <Grid container spacing={3}>
+  <Grid container spacing={{ xs: 2, sm: 2.5, md: 3 }}>
           {event.photos.map((src, idx) => (
             <Grid key={src} item xs={12} sm={6} md={4} lg={3}>
               <Slide in timeout={400} direction="up">
