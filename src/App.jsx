@@ -454,7 +454,23 @@ function App() {
                     <Avatar src="/TMS-LOGO.png" alt="Thapar Mathematical Society logo" imgProps={{ decoding: 'async', fetchpriority: 'high' }} sx={{ width: 128, height: 128, mr: { md: 3, xs: 0 }, mb: { xs: 2, md: 0 }, bgcolor: 'white', border: (t) => `3px solid ${t.palette[t.palette.mode === 'dark' ? 'secondary' : 'primary'].main}`, boxShadow: 2 }} />
                   </Reveal>
                   <Reveal delayMs={80} distance={18}>
-                    <Typography variant="h2" sx={{ fontFamily: '"Space Grotesk", Inter, Roboto, Arial, sans-serif', fontWeight: 700, color: 'common.white', letterSpacing: 0.5, lineHeight: 1.05, textShadow: '0 4px 18px rgba(0,0,0,0.45)', fontSize: { xs: '2.35rem', sm: '3.2rem', md: '3.6rem' } }}>Thapar Mathematical Society</Typography>
+                    <Typography
+                      variant="h2"
+                      sx={{
+                        fontFamily: '"Space Grotesk", Inter, Roboto, Arial, sans-serif',
+                        fontWeight: 700,
+                        color: 'common.white',
+                        letterSpacing: 0.5,
+                        lineHeight: 1.05,
+                        textShadow: '0 4px 18px rgba(0,0,0,0.45)',
+                        fontSize: { xs: '2.35rem', sm: '3.2rem', md: '3.6rem' },
+                        // Shift heading left on wider screens so its left edge aligns with the text block below (compensate for avatar width + spacing)
+                        ml: { md: '-152px' },
+                        pr: { md: 3 },
+                      }}
+                    >
+                      Thapar Mathematical Society
+                    </Typography>
                   </Reveal>
                 </Box>
                 <Reveal delayMs={150} distance={14}>
