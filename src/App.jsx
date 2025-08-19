@@ -463,10 +463,7 @@ function App() {
                         letterSpacing: 0.5,
                         lineHeight: 1.05,
                         textShadow: '0 4px 18px rgba(0,0,0,0.45)',
-                        fontSize: { xs: '2.35rem', sm: '3.2rem', md: '3.6rem' },
-                        // Shift heading left on wider screens so its left edge aligns with the text block below (compensate for avatar width + spacing)
-                        ml: { md: '-152px' },
-                        pr: { md: 3 },
+                        fontSize: { xs: '2.35rem', sm: '3.2rem', md: '3.6rem' }
                       }}
                     >
                       Thapar Mathematical Society
@@ -474,21 +471,21 @@ function App() {
                   </Reveal>
                 </Box>
                 <Reveal delayMs={150} distance={14}>
-                    <Typography variant="h6" sx={{ color: 'common.white', mb: 2, textShadow: '0 2px 10px rgba(0,0,0,0.35)', fontSize: { xs: 16, sm: 18 } }}>
+                  <Typography variant="h6" sx={{ color: 'common.white', mb: 2, textShadow: '0 2px 10px rgba(0,0,0,0.35)', fontSize: { xs: 16, sm: 18 }, ml: { md: '152px' } }}>
                     Thapar Institute of Engineering & Technology, Patiala
                   </Typography>
                 </Reveal>
                 <Reveal delayMs={220} distance={14}>
-                    <Typography variant="body1" sx={{ color: (t) => alpha(t.palette.common.white, 0.9), fontSize: { xs: 15, sm: 16, md: 18 }, maxWidth: 760 }}>
+                  <Typography variant="body1" sx={{ color: (t) => alpha(t.palette.common.white, 0.9), fontSize: { xs: 15, sm: 16, md: 18 }, maxWidth: 760, ml: { md: '152px' } }}>
                     Welcome to the official website of TMS! We foster mathematical curiosity, organize events, and connect enthusiasts across campus.
                   </Typography>
                 </Reveal>
-                  <Reveal delayMs={300} distance={12}>
-                    <Box sx={{ mt: 3, display: 'flex', gap: 1.5 }}>
-                      <Button variant="contained" color="secondary" size="medium" onClick={() => setSection('events')} sx={{ fontWeight: 600, px: 2.8, py: 1 }}>Explore Events</Button>
-                      <Button variant="outlined" color="secondary" size="medium" onClick={() => setSection('gallery')} sx={{ fontWeight: 600, px: 2.8, py: 1, display: { xs: 'none', sm: 'inline-flex' } }}>View Gallery</Button>
-                    </Box>
-                  </Reveal>
+                <Reveal delayMs={300} distance={12}>
+                  <Box sx={{ mt: 3, display: 'flex', gap: 1.5, ml: { md: '152px' } }}>
+                    <Button variant="contained" color="secondary" size="medium" onClick={() => setSection('events')} sx={{ fontWeight: 600, px: 2.8, py: 1 }}>Explore Events</Button>
+                    <Button variant="outlined" color="secondary" size="medium" onClick={() => setSection('gallery')} sx={{ fontWeight: 600, px: 2.8, py: 1, display: { xs: 'none', sm: 'inline-flex' } }}>View Gallery</Button>
+                  </Box>
+                </Reveal>
               </Container>
             </Box>
             <Container maxWidth="lg" sx={{ py: 4 }}>
