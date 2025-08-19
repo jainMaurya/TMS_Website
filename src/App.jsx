@@ -1,10 +1,11 @@
 import React from 'react';
 import { useEffect, useMemo, useState } from 'react';
-import { AppBar, Toolbar, Typography, Button, Container, Box, Paper, Grid, Link, Card, CardContent, CardActions, Tabs, Tab, Fade, Avatar, Dialog, CssBaseline, Fab, Zoom, TextField, Slide, IconButton } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, Container, Box, Paper, Grid, Link, Card, CardContent, CardActions, Tabs, Tab, Fade, Avatar, Dialog, CssBaseline, Fab, Zoom, TextField, Slide, IconButton, Drawer, List, ListItemButton, ListItemText, Divider } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import MenuIcon from '@mui/icons-material/Menu';
 // removed theme toggle icons
 import { ThemeProvider, createTheme, alpha } from '@mui/material/styles';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -27,6 +28,7 @@ function App() {
   const [viewerIndex, setViewerIndex] = useState(0);
   const [eventsYear, setEventsYear] = useState('All');
   const [eventsQuery, setEventsQuery] = useState('');
+  const [navOpen, setNavOpen] = useState(false);
 
   const theme = useMemo(() => createTheme({
     palette: {
@@ -292,7 +294,7 @@ function App() {
       <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', width: '100vw', overflowX: 'hidden' }}>
         {/* Navigation Bar */}
   <AppBar position="static" color={'secondary'} elevation={2}>
-          <Toolbar>
+          <Toolbar sx={{ minHeight: { xs: 56, sm: 64 }, px: { xs: 1, sm: 2 } }}>
             <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
               <IconButton
                 aria-label="Go to home"
@@ -314,22 +316,50 @@ function App() {
                 />
               </IconButton>
             </Box>
-            <Tabs value={section} onChange={handleNavChange} textColor="inherit" indicatorColor="secondary" sx={{ fontWeight: 'bold' }}>
+            {/* Desktop / tablet tabs */}
+            <Tabs value={section} onChange={handleNavChange} textColor="inherit" indicatorColor="secondary" sx={{ fontWeight: 'bold', display: { xs: 'none', md: 'flex' } }}>
               <Tab label="Home" value="home" />
               <Tab label="Events" value="events" />
               <Tab label="Gallery" value="gallery" />
               <Tab label="Team" value="team" />
             </Tabs>
+            {/* Mobile menu trigger */}
+            <IconButton aria-label="Open navigation" color="inherit" onClick={() => setNavOpen(true)} sx={{ display: { xs: 'inline-flex', md: 'none' } }}>
+              <MenuIcon />
+            </IconButton>
             {/* Removed top-right logo per request */}
           </Toolbar>
         </AppBar>
+        {/* Mobile Drawer Navigation */}
+        <Drawer anchor="right" open={navOpen} onClose={() => setNavOpen(false)} PaperProps={{ sx: { width: 240, bgcolor: 'background.paper' } }}>
+          <Box sx={{ pt: 2, pb: 1, px: 2 }}>
+            <Typography variant="subtitle2" sx={{ fontWeight: 700, letterSpacing: 0.5, mb: 1, color: 'secondary.main' }}>Navigate</Typography>
+            <Divider sx={{ mb: 1 }} />
+          </Box>
+          <List dense>
+            {[
+              { label: 'Home', value: 'home' },
+              { label: 'Events', value: 'events' },
+              { label: 'Gallery', value: 'gallery' },
+              { label: 'Team', value: 'team' },
+            ].map(item => (
+              <ListItemButton key={item.value} selected={section === item.value} onClick={() => { setSection(item.value); setNavOpen(false); }}>
+                <ListItemText primaryTypographyProps={{ fontWeight: 600 }} primary={item.label} />
+              </ListItemButton>
+            ))}
+          </List>
+          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ p: 2, pt: 0 }}>
+            <Button fullWidth variant="contained" color="secondary" onClick={() => { setSection('events'); setNavOpen(false); }} sx={{ fontWeight: 600 }}>View Events</Button>
+          </Box>
+        </Drawer>
 
         {/* Home Section with Hero and About */}
         <Fade in={section === 'home'} timeout={600} unmountOnExit>
           <Box>
             <Box id="home" ref={heroRef} onMouseMove={onHeroMouseMove} onMouseLeave={onHeroMouseLeave} sx={{
               width: '100%',
-              minHeight: { xs: 520, md: 720 },
+              minHeight: { xs: 460, md: 720 },
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -366,6 +396,7 @@ function App() {
                 backgroundSize: '80px 80px, 80px 80px',
                 transform: 'translateZ(0)',
                 animation: 'gridFloat 18s linear infinite',
+                display: { xs: 'none', sm: 'block' },
                 '@keyframes gridFloat': {
                   '0%': { backgroundPosition: '0px 0px, 0px 0px' },
                   '50%': { backgroundPosition: '40px 40px, 40px 40px' },
@@ -376,6 +407,7 @@ function App() {
                 position: 'absolute', inset: '-10%', pointerEvents: 'none', mixBlendMode: 'screen', opacity: 0.35,
                 background: 'conic-gradient(from 0deg at 50% 50%, rgba(61,33,117,0.9), rgba(61,33,117,0) 25%, rgba(61,33,117,0.8) 50%, rgba(61,33,117,0) 75%, rgba(61,33,117,0.9))',
                 animation: 'spinConic 40s linear infinite',
+                display: { xs: 'none', sm: 'block' },
                 '@keyframes spinConic': {
                   '0%': { transform: 'rotate(0deg)' },
                   '100%': { transform: 'rotate(360deg)' }
@@ -389,6 +421,7 @@ function App() {
                 filter: 'blur(80px)', opacity: 0.65, mixBlendMode: 'screen',
                 animation: 'float1 24s ease-in-out infinite',
                 transform: 'translate3d(calc(var(--px) * 12px), calc(var(--py) * 8px), 0)',
+                display: { xs: 'none', sm: 'block' },
                 '@keyframes float1': {
                   '0%': { transform: 'translate3d(0,0,0) scale(1)' },
                   '50%': { transform: 'translate3d(10vw,5vh,0) scale(1.15)' },
@@ -402,6 +435,7 @@ function App() {
                 filter: 'blur(90px)', opacity: 0.6, mixBlendMode: 'screen',
                 animation: 'float2 28s ease-in-out infinite',
                 transform: 'translate3d(calc(var(--px) * -10px), calc(var(--py) * -6px), 0)',
+                display: { xs: 'none', sm: 'block' },
                 '@keyframes float2': {
                   '0%': { transform: 'translate3d(0,0,0) scale(1)' },
                   '50%': { transform: 'translate3d(-8vw,-6vh,0) scale(1.2)' },
@@ -420,19 +454,25 @@ function App() {
                     <Avatar src="/TMS-LOGO.png" alt="Thapar Mathematical Society logo" imgProps={{ decoding: 'async', fetchpriority: 'high' }} sx={{ width: 128, height: 128, mr: { md: 3, xs: 0 }, mb: { xs: 2, md: 0 }, bgcolor: 'white', border: (t) => `3px solid ${t.palette[t.palette.mode === 'dark' ? 'secondary' : 'primary'].main}`, boxShadow: 2 }} />
                   </Reveal>
                   <Reveal delayMs={80} distance={18}>
-                    <Typography variant="h2" sx={{ fontFamily: '"Space Grotesk", Inter, Roboto, Arial, sans-serif', fontWeight: 700, color: 'common.white', letterSpacing: 0.5, lineHeight: 1.05, textShadow: '0 4px 18px rgba(0,0,0,0.45)' }}>Thapar Mathematical Society</Typography>
+                    <Typography variant="h2" sx={{ fontFamily: '"Space Grotesk", Inter, Roboto, Arial, sans-serif', fontWeight: 700, color: 'common.white', letterSpacing: 0.5, lineHeight: 1.05, textShadow: '0 4px 18px rgba(0,0,0,0.45)', fontSize: { xs: '2.35rem', sm: '3.2rem', md: '3.6rem' } }}>Thapar Mathematical Society</Typography>
                   </Reveal>
                 </Box>
                 <Reveal delayMs={150} distance={14}>
-                  <Typography variant="h6" sx={{ color: 'common.white', mb: 2, textShadow: '0 2px 10px rgba(0,0,0,0.35)' }}>
+                    <Typography variant="h6" sx={{ color: 'common.white', mb: 2, textShadow: '0 2px 10px rgba(0,0,0,0.35)', fontSize: { xs: 16, sm: 18 } }}>
                     Thapar Institute of Engineering & Technology, Patiala
                   </Typography>
                 </Reveal>
                 <Reveal delayMs={220} distance={14}>
-                  <Typography variant="body1" sx={{ color: (t) => alpha(t.palette.common.white, 0.9), fontSize: { xs: 16, md: 18 } }}>
+                    <Typography variant="body1" sx={{ color: (t) => alpha(t.palette.common.white, 0.9), fontSize: { xs: 15, sm: 16, md: 18 }, maxWidth: 760 }}>
                     Welcome to the official website of TMS! We foster mathematical curiosity, organize events, and connect enthusiasts across campus.
                   </Typography>
                 </Reveal>
+                  <Reveal delayMs={300} distance={12}>
+                    <Box sx={{ mt: 3, display: 'flex', gap: 1.5 }}>
+                      <Button variant="contained" color="secondary" size="medium" onClick={() => setSection('events')} sx={{ fontWeight: 600, px: 2.8, py: 1 }}>Explore Events</Button>
+                      <Button variant="outlined" color="secondary" size="medium" onClick={() => setSection('gallery')} sx={{ fontWeight: 600, px: 2.8, py: 1, display: { xs: 'none', sm: 'inline-flex' } }}>View Gallery</Button>
+                    </Box>
+                  </Reveal>
               </Container>
             </Box>
             <Container maxWidth="lg" sx={{ py: 4 }}>

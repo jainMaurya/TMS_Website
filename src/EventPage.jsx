@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState } from 'react';
-import { Container, Box, Typography, Grid, Paper, AppBar, Toolbar, IconButton, Link, CssBaseline, Dialog, Button, Fade, Slide } from '@mui/material';
+import { Container, Box, Typography, Grid, Paper, AppBar, Toolbar, IconButton, Link, CssBaseline, Dialog, Button, Fade, Slide, useMediaQuery } from '@mui/material';
 import { ThemeProvider, createTheme, alpha } from '@mui/material/styles';
 import { useParams, Link as RouterLink, useNavigate } from 'react-router-dom';
 import { events } from './data/events.js';
@@ -39,6 +39,8 @@ export default function EventPage() {
           }),
     },
   }), [mode]);
+  // Media queries for responsive adjustments
+  const isXs = useMediaQuery('(max-width:420px)');
   useEffect(() => { if (event) document.title = `TMS — ${event.title}`; }, [event]);
   // open lightbox
   const openViewer = (idx = 0) => { setViewerIndex(idx); try { window.history.pushState({ lightbox: true }, ''); } catch {} setViewerOpen(true); };
@@ -91,16 +93,17 @@ export default function EventPage() {
     return (
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AppBar position="static" color={mode === 'dark' ? 'secondary' : 'primary'} elevation={2}>
-          <Toolbar>
+        <AppBar position="sticky" color={mode === 'dark' ? 'secondary' : 'primary'} elevation={2}
+          sx={{ backdropFilter: 'blur(6px)', backgroundColor: (t) => alpha(t.palette.secondary.main, 0.92) }}>
+          <Toolbar sx={{ minHeight: { xs: 56, sm: 64 }, px: { xs: 1, sm: 2 }, gap: 1 }}>
             <IconButton edge="start" color="inherit" component={RouterLink} to="/">
               <ArrowBackIcon />
             </IconButton>
-            <IconButton color="inherit" component={RouterLink} to="/" disableRipple disableFocusRipple focusRipple={false} sx={{ p: 0.5, ml: 1, borderRadius: 0, '&:hover': { backgroundColor: 'transparent' }, position: 'relative', width: 48, height: 48 }}>
-              <Box component="img" src="/TMS-UPPER.png" alt="TMS Home" onError={(e)=>{ e.currentTarget.src='/TMS-LOGO.png'; }} sx={{ height: { xs: 120, sm: 160 }, width: 'auto', objectFit: 'contain', display: 'block', position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)' }} />
-            </IconButton>
+            <Box component={RouterLink} to="/" aria-label="Home" sx={{ position: 'relative', display: 'inline-flex', alignItems: 'center', textDecoration: 'none', lineHeight: 0, height: { xs: 44, sm: 56 }, mr: { xs: 1, sm: 2 } }}>
+              <Box component="img" src="/TMS-UPPER.png" onError={(e)=>{ e.currentTarget.src='/TMS-LOGO.png'; }} alt="TMS Logo" sx={{ height: { xs: 44, sm: 56 }, width: 'auto', objectFit: 'contain', display: 'block', pointerEvents: 'none' }} />
+            </Box>
             <Box sx={{ flexGrow: 1 }} />
-            <Link component={RouterLink} to="/" color="inherit" underline="hover">Home</Link>
+            <Link component={RouterLink} to="/" color="inherit" underline="hover" sx={{ display: { xs: 'none', sm: 'inline-flex' }, fontSize: 14, letterSpacing: 0.5 }}>Home</Link>
           </Toolbar>
         </AppBar>
         <Container sx={{ py: 8 }}>
@@ -128,93 +131,85 @@ export default function EventPage() {
           ],
         })}
       </script>
-  <AppBar position="static" color={'secondary'} elevation={2}>
-        <Toolbar>
-          <IconButton edge="start" color="inherit" component={RouterLink} to="/">
+  <AppBar position="sticky" color={'secondary'} elevation={2} sx={{ backdropFilter: 'blur(6px)', backgroundColor: (t) => alpha(t.palette.secondary.main, 0.92) }}>
+        <Toolbar sx={{ minHeight: { xs: 56, sm: 64 }, px: { xs: 1, sm: 2 }, gap: 1 }}>
+          <IconButton edge="start" color="inherit" component={RouterLink} to="/" aria-label="Back">
             <ArrowBackIcon />
           </IconButton>
-          <IconButton color="inherit" component={RouterLink} to="/" disableRipple disableFocusRipple focusRipple={false} sx={{ p: 0.5, ml: 1, borderRadius: 0, '&:hover': { backgroundColor: 'transparent' }, position: 'relative', width: 48, height: 48 }}>
-            <Box component="img" src="/TMS-UPPER.png" alt="TMS Home" onError={(e)=>{ e.currentTarget.src='/TMS-LOGO.png'; }} sx={{ height: { xs: 120, sm: 160 }, width: 'auto', objectFit: 'contain', display: 'block', position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)' }} />
-          </IconButton>
+          <Box component={RouterLink} to="/" aria-label="Home" sx={{ position: 'relative', display: 'inline-flex', alignItems: 'center', textDecoration: 'none', lineHeight: 0, height: { xs: 44, sm: 56 }, mr: { xs: 1, sm: 2 } }}>
+            <Box component="img" src="/TMS-UPPER.png" onError={(e)=>{ e.currentTarget.src='/TMS-LOGO.png'; }} alt="TMS Logo" sx={{ height: { xs: 44, sm: 56 }, width: 'auto', objectFit: 'contain', display: 'block', pointerEvents: 'none' }} />
+          </Box>
           <Box sx={{ flexGrow: 1 }} />
-          <Link component={RouterLink} to="/" color="inherit" underline="hover">Home</Link>
+          <Link component={RouterLink} to="/" color="inherit" underline="hover" sx={{ display: { xs: 'none', sm: 'inline-flex' }, fontSize: 14, letterSpacing: 0.5 }}>Home</Link>
         </Toolbar>
       </AppBar>
   <Box sx={{ width: '100%', background: (t) => {
-        const accent = t.palette[t.palette.mode === 'dark' ? 'secondary' : 'primary'].light;
-        return `linear-gradient(90deg, ${alpha(accent, 0.12)} 0%, ${t.palette.background.paper} 100%)`;
-      }, py: 6 }}>
-        <Container maxWidth="lg">
-        <Box sx={{ mb: 3 }}>
-          <Typography variant="overline" sx={{ color: 'text.secondary' }}>{event.date}</Typography>
-          <Typography variant="h4" sx={{ color: (t) => t.palette.secondary.main, fontWeight: 'bold' }}>{event.title}</Typography>
-        </Box>
-        <Fade in timeout={600}><Box sx={{ mb: 2 }}>
-          <Box
-            component="img"
-            src={event.cover}
-            alt={`${event.title} cover`}
-            loading="lazy"
-            decoding="async"
-            fetchpriority="high"
-            sx={{ width: '100%', height: { xs: 260, md: 420 }, objectFit: 'cover', borderRadius: 3, display: 'block' }}
-          />
-        </Box></Fade>
-        {/* Prev/Next navigation */}
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
-          <Button component={RouterLink} to={prev ? `/events/${prev.slug}` : '#'} disabled={!prev}
-                  variant="outlined" color={mode === 'dark' ? 'secondary' : 'primary'} startIcon={<ArrowBackIosNewIcon />}>
-            Previous
-          </Button>
-          <Button component={RouterLink} to={next ? `/events/${next.slug}` : '#'} disabled={!next}
-                  variant="outlined" color={mode === 'dark' ? 'secondary' : 'primary'} endIcon={<ArrowForwardIosIcon />}>
-            Next
-          </Button>
-        </Box>
-  <Grid container spacing={{ xs: 2, sm: 2.5, md: 3 }}>
-          {event.photos.map((src, idx) => (
-            <Grid key={src} item xs={12} sm={6} md={4} lg={3}>
-              <Slide in timeout={400} direction="up">
-                <Paper elevation={2} sx={{ p: 1, borderRadius: 3, cursor: 'zoom-in', transition: 'transform .2s, box-shadow .2s', '&:hover': { transform: 'translateY(-4px)', boxShadow: 6 } }} onClick={() => openViewer(idx)}>
-                  <Box
-                    component="img"
-                    src={src}
-                    alt={`${event.title} photo`}
-                    loading="lazy"
-                    sx={{ width: '100%', height: 220, objectFit: 'cover', borderRadius: 2, display: 'block' }}
-                  />
-                </Paper>
-              </Slide>
-            </Grid>
-          ))}
-        </Grid>
+        const accent = t.palette.secondary.light;
+        return `linear-gradient(115deg, ${alpha(accent, 0.12)} 0%, ${t.palette.background.paper} 100%)`;
+      }, pt: { xs: 4, sm: 6 }, pb: { xs: 4, sm: 6 } }}>
+        <Container maxWidth="lg" sx={{ px: { xs: 1.5, sm: 2 } }}>
+          <Box sx={{ mb: { xs: 2.5, sm: 3 } }}>
+            <Typography variant="overline" sx={{ color: 'text.secondary', fontSize: 10, letterSpacing: 1 }}>{event.date}</Typography>
+            <Typography variant="h4" sx={{ mt: 0.5, fontSize: { xs: 24, sm: 34 }, color: (t) => t.palette.secondary.main, fontWeight: 700, lineHeight: 1.15 }}>{event.title}</Typography>
+          </Box>
+          <Fade in timeout={500}>
+            <Box sx={{ mb: { xs: 2.5, sm: 4 } }}>
+              <Box
+                component="img"
+                src={event.cover}
+                alt={`${event.title} cover`}
+                loading="eager"
+                decoding="async"
+                fetchpriority="high"
+                sizes="(max-width: 600px) 100vw, (max-width: 1200px) 80vw, 1100px"
+                sx={{ width: '100%', height: { xs: 210, sm: 320, md: 420 }, objectFit: 'cover', borderRadius: 3, display: 'block', boxShadow: (t) => `0 4px 24px -6px ${alpha(t.palette.secondary.main,0.4)}` }}
+              />
+            </Box>
+          </Fade>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.5, justifyContent: 'space-between', mb: { xs: 3, sm: 4 } }}>
+            <Button component={RouterLink} to={prev ? `/events/${prev.slug}` : '#'} disabled={!prev} variant="outlined" color={mode === 'dark' ? 'secondary' : 'primary'} startIcon={<ArrowBackIosNewIcon />} size={isXs ? 'small' : 'medium'} sx={{ flexShrink: 0 }}>Previous</Button>
+            <Button component={RouterLink} to={next ? `/events/${next.slug}` : '#'} disabled={!next} variant="outlined" color={mode === 'dark' ? 'secondary' : 'primary'} endIcon={<ArrowForwardIosIcon />} size={isXs ? 'small' : 'medium'} sx={{ flexShrink: 0 }}>Next</Button>
+          </Box>
+          <Grid container spacing={{ xs: 1.5, sm: 2, md: 2.5 }}>
+            {event.photos.map((src, idx) => (
+              <Grid key={src} item xs={6} sm={4} md={3}>
+                <Slide in timeout={350 + idx * 30} direction="up">
+                  <Paper elevation={2} onClick={() => openViewer(idx)} sx={{ cursor: 'zoom-in', p: 0.75, borderRadius: 3, backgroundColor: 'background.paper', transition: 'transform .25s, box-shadow .25s', '&:hover': { transform: 'translateY(-4px)', boxShadow: 6 } }}>
+                    <Box component="img" src={src} alt={`${event.title} photo ${idx + 1}`} loading="lazy" decoding="async" sizes="(max-width:600px) 50vw, (max-width:900px) 33vw, (max-width:1200px) 25vw, 22vw" style={{ aspectRatio: '4 / 3' }} sx={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover', borderRadius: 2 }} />
+                  </Paper>
+                </Slide>
+              </Grid>
+            ))}
+          </Grid>
         </Container>
       </Box>
       {/* Lightbox Viewer */}
       {event?.photos?.length > 0 && (
-        <Dialog open={viewerOpen} onClose={closeViewer} maxWidth="md" fullWidth PaperProps={{ sx: { bgcolor: 'black' } }}>
-          <Box sx={{ position: 'relative', bgcolor: 'black' }}>
-            <IconButton onClick={closeViewer} sx={{ position: 'absolute', top: 8, right: 8, color: 'white', zIndex: 2 }}>
+        <Dialog
+          open={viewerOpen}
+          onClose={closeViewer}
+          fullWidth
+          maxWidth="md"
+          PaperProps={{ sx: { bgcolor: 'black', borderRadius: { xs: 0, sm: 2 }, m: 0 } }}
+        >
+          <Box sx={{ position: 'relative' }}>
+            <IconButton onClick={closeViewer} aria-label="Close viewer" sx={{ position: 'absolute', top: 6, right: 6, color: 'white', zIndex: 2 }}>
               <CloseIcon />
             </IconButton>
-            <Box sx={{ width: '100%', height: { xs: 320, md: 520 }, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Box role="img" aria-label="viewer image" sx={{ width: '100%', height: '100%', background: `center/contain no-repeat url("${event.photos[viewerIndex]}")` }} />
+            <Box sx={{ width: '100%', height: { xs: 'calc(100dvh - 56px)', sm: 540 }, display: 'flex', alignItems: 'center', justifyContent: 'center', p: { xs: 1, sm: 2 } }}>
+              <Box component="img" src={event.photos[viewerIndex]} alt={`Photo ${viewerIndex + 1} of ${event.title}`} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
             </Box>
             {event.photos.length > 1 && (
-              <Box sx={{ position: 'absolute', top: '50%', left: 8, transform: 'translateY(-50%)', zIndex: 2 }}>
-                <IconButton onClick={prevImage} sx={{ color: 'white', bgcolor: 'rgba(255,255,255,0.1)' }}>
-                  <ChevronLeftIcon />
-                </IconButton>
-              </Box>
+              <IconButton onClick={prevImage} aria-label="Previous image" sx={{ position: 'absolute', top: '50%', left: 8, transform: 'translateY(-50%)', color: 'white', bgcolor: 'rgba(255,255,255,0.12)', '&:hover': { bgcolor: 'rgba(255,255,255,0.25)' } }}>
+                <ChevronLeftIcon />
+              </IconButton>
             )}
             {event.photos.length > 1 && (
-              <Box sx={{ position: 'absolute', top: '50%', right: 8, transform: 'translateY(-50%)', zIndex: 2 }}>
-                <IconButton onClick={nextImage} sx={{ color: 'white', bgcolor: 'rgba(255,255,255,0.1)' }}>
-                  <ChevronRightIcon />
-                </IconButton>
-              </Box>
+              <IconButton onClick={nextImage} aria-label="Next image" sx={{ position: 'absolute', top: '50%', right: 8, transform: 'translateY(-50%)', color: 'white', bgcolor: 'rgba(255,255,255,0.12)', '&:hover': { bgcolor: 'rgba(255,255,255,0.25)' } }}>
+                <ChevronRightIcon />
+              </IconButton>
             )}
-            <Box sx={{ position: 'absolute', bottom: 8, left: 16, right: 16, color: 'white', opacity: 0.8, textAlign: 'center', fontSize: 12 }}>
+            <Box sx={{ position: 'absolute', bottom: 8, left: 0, right: 0, textAlign: 'center', color: 'white', fontSize: 12, letterSpacing: 1, opacity: 0.75 }}>
               {viewerIndex + 1} / {event.photos.length}
             </Box>
           </Box>
