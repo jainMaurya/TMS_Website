@@ -22,7 +22,7 @@ function App() {
   const mode = 'dark';
   const [fadeIn, setFadeIn] = useState(false);
   const [section, setSection] = useState('home');
-  const [galleryYear, setGalleryYear] = useState('2023-24');
+  const [galleryYear, setGalleryYear] = useState('2025-26');
   const [viewerOpen, setViewerOpen] = useState(false);
   const [viewerImages, setViewerImages] = useState([]);
   const [viewerIndex, setViewerIndex] = useState(0);
@@ -127,17 +127,20 @@ function App() {
   }, []);
 
   const galleryData = {
-    '2017-18': [
-      '/gallery/2017-18/1.png','/gallery/2017-18/2.png','/gallery/2017-18/3.png','/gallery/2017-18/4.png','/gallery/2017-18/5.png','/gallery/2017-18/6.png','/gallery/2017-18/7.png'
+    '2025-26': [
+      '/gallery/25-26/IMG20250828173811.jpg','/gallery/25-26/IMG20250828174306.jpg','/gallery/25-26/IMG20250828174448.jpg','/gallery/25-26/IMG20250828174824.jpg','/gallery/25-26/IMG20250828175228.jpg','/gallery/25-26/IMG20250828175256.jpg','/gallery/25-26/IMG20250828175800.jpg','/gallery/25-26/IMG20250828175910.jpg','/gallery/25-26/IMG20250828175924.jpg','/gallery/25-26/IMG20250828180324.jpg','/gallery/25-26/IMG20250828180350.jpg','/gallery/25-26/IMG20250828180518.jpg','/gallery/25-26/IMG20250828181015.jpg','/gallery/25-26/IMG20250828181700.jpg','/gallery/25-26/IMG20250828181856.jpg','/gallery/25-26/IMG20250828181923.jpg','/gallery/25-26/IMG20250828182756.jpg','/gallery/25-26/IMG20250828182824.jpg','/gallery/25-26/IMG20250828182837.jpg','/gallery/25-26/IMG20250828182938.jpg','/gallery/25-26/IMG20250828182945.jpg','/gallery/25-26/IMG20250828183226.jpg','/gallery/25-26/IMG20250828183718.jpg','/gallery/25-26/IMG20250828183816.jpg','/gallery/25-26/IMG20250828183933.jpg','/gallery/25-26/IMG_8549.JPG','/gallery/25-26/IMG_8553.JPG','/gallery/25-26/IMG_8559.JPG','/gallery/25-26/IMG_8564.JPG'
     ],
-    '2018-19': [
-      '/gallery/2018-19/1.jpg','/gallery/2018-19/2.jpg','/gallery/2018-19/3.jpg','/gallery/2018-19/4.jpg','/gallery/2018-19/5.jpg','/gallery/2018-19/6.jpg','/gallery/2018-19/7.jpg','/gallery/2018-19/8.jpg','/gallery/2018-19/9.jpg','/gallery/2018-19/10.jpg','/gallery/2018-19/11.jpg','/gallery/2018-19/12.jpg','/gallery/2018-19/13.jpg','/gallery/2018-19/14.jpg','/gallery/2018-19/15.jpg','/gallery/2018-19/16.jpg','/gallery/2018-19/17.jpg','/gallery/2018-19/18.png'
+    '2023-24': [
+      '/gallery/2023-24/Group photo.png','/gallery/2023-24/idk (2).png','/gallery/2023-24/idk.png','/gallery/2023-24/IMG-20240309-WA0014.jpg','/gallery/2023-24/IMG-20240309-WA0017.jpg','/gallery/2023-24/IMG-20240309-WA0033.jpg','/gallery/2023-24/IMG-20240309-WA0035.jpg','/gallery/2023-24/IMG-20240616-WA0003.jpg','/gallery/2023-24/IMG-20240616-WA0004.jpg','/gallery/2023-24/IMG-20240616-WA0012.jpg','/gallery/2023-24/IMG20240901182413.jpg','/gallery/2023-24/IMG20240901212929.jpg','/gallery/2023-24/Screenshot 2024-06-03 101633.png','/gallery/2023-24/Screenshot 2024-06-04 130122.png','/gallery/2023-24/Screenshot 2024-09-12 210618.png','/gallery/2023-24/WhatsApp Image 2024-11-10 at 20.18.48_47bc9512.jpg','/gallery/2023-24/WhatsApp Image 2024-11-10 at 20.18.53_fe1df9be.jpg'
     ],
     '2019-20': [
       '/gallery/2019-20/EmbeddedImage1.jpg','/gallery/2019-20/EmbeddedImage2.jpg','/gallery/2019-20/EmbeddedImage3.jpg','/gallery/2019-20/EmbeddedImage4.jpg','/gallery/2019-20/EmbeddedImage5.jpg','/gallery/2019-20/EmbeddedImage6.jpg','/gallery/2019-20/EmbeddedImage7.jpg','/gallery/2019-20/EmbeddedImage8.jpg'
     ],
-    '2023-24': [
-      '/gallery/2023-24/Group photo.png','/gallery/2023-24/idk (2).png','/gallery/2023-24/idk.png','/gallery/2023-24/IMG-20240309-WA0014.jpg','/gallery/2023-24/IMG-20240309-WA0017.jpg','/gallery/2023-24/IMG-20240309-WA0033.jpg','/gallery/2023-24/IMG-20240309-WA0035.jpg','/gallery/2023-24/IMG-20240616-WA0003.jpg','/gallery/2023-24/IMG-20240616-WA0004.jpg','/gallery/2023-24/IMG-20240616-WA0012.jpg','/gallery/2023-24/IMG20240901182413.jpg','/gallery/2023-24/IMG20240901212929.jpg','/gallery/2023-24/Screenshot 2024-06-03 101633.png','/gallery/2023-24/Screenshot 2024-06-04 130122.png','/gallery/2023-24/Screenshot 2024-09-12 210618.png','/gallery/2023-24/WhatsApp Image 2024-11-10 at 20.18.48_47bc9512.jpg','/gallery/2023-24/WhatsApp Image 2024-11-10 at 20.18.53_fe1df9be.jpg'
+    '2018-19': [
+      '/gallery/2018-19/1.jpg','/gallery/2018-19/2.jpg','/gallery/2018-19/3.jpg','/gallery/2018-19/4.jpg','/gallery/2018-19/5.jpg','/gallery/2018-19/6.jpg','/gallery/2018-19/7.jpg','/gallery/2018-19/8.jpg','/gallery/2018-19/9.jpg','/gallery/2018-19/10.jpg','/gallery/2018-19/11.jpg','/gallery/2018-19/12.jpg','/gallery/2018-19/13.jpg','/gallery/2018-19/14.jpg','/gallery/2018-19/15.jpg','/gallery/2018-19/16.jpg','/gallery/2018-19/17.jpg','/gallery/2018-19/18.png'
+    ],
+    '2017-18': [
+      '/gallery/2017-18/1.png','/gallery/2017-18/2.png','/gallery/2017-18/3.png','/gallery/2017-18/4.png','/gallery/2017-18/5.png','/gallery/2017-18/6.png','/gallery/2017-18/7.png'
     ],
   };
 
